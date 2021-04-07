@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/contactoFragment">
+
+    <fragment
+        android:id="@+id/contactoFragment"
+        android:name="com.example.projecti.ui.ContactoFragment"
+        android:label="Lista de Contactos"
+        tools:layout="@layout/fragment_contacto" >
+        <action
+            android:id="@+id/action_contactoFragment_to_registroFragment"
+            app:destination="@id/registroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroFragment"
+        android:name="com.example.projecti.ui.RegistroFragment"
+        android:label="Registro Contacto"
+        app:startDestination="@id/action_registroFragment_to_citasFragment"
+        tools:layout="@layout/fragment_registro">
+        <action
+            android:id="@+id/action_registroFragment_to_citasFragment"
+            app:destination="@id/citasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citasFragment"
+        android:name="com.example.projecti.ui.CitasFragment"
+        android:label="fragment_citas"
+        tools:layout="@layout/fragment_citas" />
+</navigation>
