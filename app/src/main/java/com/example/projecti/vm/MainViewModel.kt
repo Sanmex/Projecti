@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.projecti.config.AppDatabase
 import com.example.projecti.model.*
 import com.example.projecti.repositorios.*
 import kotlinx.coroutines.Dispatchers
@@ -70,5 +69,7 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
     fun getContaCita(cid:Long):LiveData<List<ContactoAndCita>> = repositorio.getContCitas(cid)
 
     fun getContTel(cid:Long):LiveData<List<ContactoAndTel>> = repositorio.getConTel(cid)
+
+    fun getContacList():LiveData<List<Contacto>> = repositorio.readAllData()
 
 }
