@@ -3,28 +3,24 @@ package com.example.projecti.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecti.R
 import com.example.projecti.databinding.ContactoRowBinding
 import com.example.projecti.model.Contacto
-import com.example.projecti.model.ContactoItem
 
 
-class ContactoAdapter ( ): RecyclerView.Adapter<ContactoAdapter.MyViewHolder>() {
+
+class ContactoAdapter: RecyclerView.Adapter<ContactoAdapter.MyViewHolder>() {
 
     //varianble lista
     private var contactoList= emptyList<Contacto>()
 
+
+
+
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
           var binding =ContactoRowBinding.bind(itemView)
-          var contexto=itemView.context
-           /*val imageView:ImageView=binding.imageView
-           val textView:TextView=binding.testo1
-           val textView2:TextView=binding.testo2
-           val textView3:TextView=binding.testo3*/
-
 
 
     }
@@ -40,9 +36,13 @@ class ContactoAdapter ( ): RecyclerView.Adapter<ContactoAdapter.MyViewHolder>() 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
           val currentItem=contactoList[position]
           holder.binding.imageView
-          holder.binding.testo1.text=currentItem.nombre.toString()
-          holder.binding.testo2.text=currentItem.direccion.toString()
-          holder.binding.testo3.text=currentItem.mail.toString()
+          holder.binding.testo1.text= currentItem.nombre
+          holder.binding.testo2.text=currentItem.direccion
+          holder.binding.testo3.text=currentItem.mail
+          holder.binding.layito.setOnClickListener {
+              val action=ContactoFragmentDirections.actionContactoFragmentToEditarFragment(currentItem)
+              holder.binding.layito.findNavController().navigate(action)//posible error
+          }
     }
 
      fun setDate(contacto:List<Contacto>){

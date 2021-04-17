@@ -12,10 +12,10 @@ interface RepoTel {
 }
 class RepoTelImpl(application: Application):RepoTel{
     private val telefonoDao:TelefonoDao by lazy{
-        AppDatabase.getDatabase(application)!!.telefonoDao()
+        AppDatabase.getDatabase(application).telefonoDao()
     }
 
-    override suspend fun guardartel(telefonos: Telefonos):Long =telefonoDao.guardarTelefonos(telefonos)
+    override suspend fun guardartel(telefonos: Telefonos):Long=telefonoDao.guardarTelefonos(telefonos)
 
     override suspend fun editarTel(telefonos: Telefonos) =telefonoDao.editarTelefonos(telefonos)
 

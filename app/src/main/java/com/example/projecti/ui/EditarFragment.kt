@@ -1,58 +1,103 @@
 package com.example.projecti.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.projecti.R
+import com.example.projecti.databinding.FragmentEditarBinding
+import com.example.projecti.model.Contacto
+import com.example.projecti.vm.MainViewModel
+import kotlinx.android.synthetic.main.fragment_editar.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EditarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding:FragmentEditarBinding?=null
+    private val binding get() = _binding!!
+    private lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val args by navArgs<EditarFragmentArgs>()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_editar, container, false)
+
+        _binding= FragmentEditarBinding.inflate(inflater,container,false)
+        val view=binding.root
+        //set text
+        mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
+        binding.editnom.setText(args.currentContact.nombre)
+        binding.editDirec.setText(args.currentContact.direccion)
+        binding.editMail.setText(args.currentContact.mail)
+        var ads=args.currentContact.id
+        //funcion que viene desde el vm donde se pregunte query por el objeto de clase relacionado con este id
+        binding
+
+
+        binding.btnedit.setOnClickListener {
+              updateItem()
+        }
+        //add menu
+
+        setHasOptionsMenu(true)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                EditarFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+    private fun updateItem(){
+        val nombre=editnom.text.toString()
+        val direccion=editDirec.text.toString()
+        val email=editMail.text.toString()
+        val puesto=
+       if(inputCheck(nombre ,direccion,email)){
+           //primero se crea el objeto contacto
+           val updateContact= Contacto(args.currentContact.id,nombre,direccion,email)
+           //desapues se llama a la funcion update
+
+            mainViewModel.editarContacto(updateContact)
+           Toast.makeText(requireContext(),"Editado con exitos",Toast.LENGTH_SHORT).show()
+           //de retro a la lista
+           findNavController().navigate(R.id.action_editarFragment_to_contactoFragment)
+
+       }else{
+           Toast.makeText(requireContext(),"Rellene los campos",Toast.LENGTH_SHORT).show()
+       }
+
     }
+    private fun inputCheck(nombre:String,direccion:String,email:String):Boolean{
+        return !(TextUtils.isEmpty(nombre) && TextUtils.isEmpty(direccion) && TextUtils.isEmpty(email))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_bar,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.delete){
+            deleteContacto()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteContacto(){
+        val builder =AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("yes"){ _,_->
+             mainViewModel.borrarContacto(args.currentContact)
+            Toast.makeText(requireContext(),"Removido",Toast.LENGTH_SHORT).show()
+            //pa la lista otra vez
+            findNavController().navigate(R.id.action_editarFragment_to_contactoFragment)
+        }
+        builder.setNegativeButton("nop"){ _,_ ->}
+         builder.setTitle("Delete ${args.currentContact.nombre}")
+            builder.setMessage("Are you sure? You will delete ${args.currentContact.nombre}")
+            builder.create().show()
+
+    }
+
+
+
 }

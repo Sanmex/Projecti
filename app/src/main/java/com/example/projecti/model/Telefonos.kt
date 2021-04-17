@@ -1,11 +1,13 @@
 package com.example.projecti.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "tabla_telefonos")
-
+@Parcelize
 data class Telefonos(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
@@ -15,5 +17,5 @@ data class Telefonos(
     @ColumnInfo(name = "tipo")
     val tipo:String,
     @ColumnInfo(name = "contactoId")
-    val contactoId:Long
-)
+    var contactoId:Long
+):Parcelable

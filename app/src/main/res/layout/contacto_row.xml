@@ -7,8 +7,9 @@
     android:layout_marginRight="16dp"
     android:id="@+id/card"
     android:clickable="true"
-    >
+    android:focusable="true">
     <RelativeLayout
+        android:id="@+id/layito"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
@@ -27,7 +28,7 @@
             android:layout_toEndOf="@+id/image_view"
             android:layout_toRightOf="@+id/image_view"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/testo2"

@@ -7,12 +7,16 @@ import com.example.projecti.model.Contacto
 import com.example.projecti.model.ContactoAndCita
 import com.example.projecti.model.ContactoAndTel
 
+
 @Dao
 interface ContactoDao{
     //guardar contacto
     @Insert(onConflict = REPLACE)
-    suspend fun guardarContact(contacto:Contacto)
-    //editar mirar si es por id o si es suficiente con el insert replace
+    suspend fun guardarContact(contacto:Contacto):Long
+
+    @Query("SELECT id from tabla_contacto order by id DESC limit 1 " )
+       fun getById():Long
+
     @Update
     suspend fun editarContact(contacto: Contacto)
     //borrar
@@ -20,26 +24,30 @@ interface ContactoDao{
     suspend fun borrarContacto(contacto: Contacto)
 
     //listado de contactos
-    @Query("select * from tabla_contacto")
+    @Query("select * from tabla_contacto order by nombre ")
     fun listaContactos():LiveData<List<Contacto>>
 
-   /* @Query("select *from tabla_contacto where nombre=:bynombre")
-    fun empresaByNombre(bynombre:String)*/
+
 
     //empresa y citas ,por id
     @Transaction
-    @Query("Select * from tabla_contacto where id=:contactoid")
-    fun listaEmpresaCitas(contactoid:Long):LiveData<List<ContactoAndCita>>
+    @Query("Select * from tabla_contacto where id=:contactoId")
+    fun listaEmpresaCitas(contactoId:Long):LiveData<List<ContactoAndCita>>
     //empresa y telefonos
 
     @Transaction
-    @Query("Select * from tabla_contacto where id=:contactoid")
-    fun listaEmpresaTelefonos(contactoid:Long):LiveData<List<ContactoAndTel>>
+    @Query("Select * from tabla_contacto where id=:contactoId")
+    fun listaEmpresaTelefonos(contactoId:Long):LiveData<List<ContactoAndTel>>
+
+      //busqueda
+    @Query("SELECT * FROM tabla_contacto WHERE nombre LIKE :searchQuery OR nombre LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<Contacto>>
 
    //empresaoferta
    /* @Transaction
     @Query("select * from tabla_contacto")
     fun  empresaOferta(oferta:)*/
+
 
 
 

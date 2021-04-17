@@ -3,27 +3,37 @@ package com.example.projecti.vm
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.projecti.model.*
 import com.example.projecti.repositorios.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(application: Application) :AndroidViewModel(application){
 
    private val repositorio:Repositorio=RepositorioImp(application)
-    val contactos=repositorio.readAllData()
     private val repoTel: RepoTel = RepoTelImpl(application)
-    private val telid = MutableLiveData<Long>()
+    private var contId:Long=0L
     private val repoOferta:RepoOferta=RepoOfertaImpl(application)
 
-    //guardar contacto
-    fun saveContact(contacto: Contacto){
+
+    //busqueda
+
+
+
+    suspend fun saveContact(contacto: Contacto) = withContext(Dispatchers.IO) {
+        repositorio.addContacto(contacto)
+    }
+    //guardar contacto con id
+   /* fun saveContact(contacto: Contacto):Long{
         viewModelScope.launch (Dispatchers.IO){
             repositorio.addContacto(contacto)
+
+
         }
-    }
+        return contId
+    }*/
     fun editarContacto(contacto: Contacto){
         viewModelScope.launch (Dispatchers.IO){
             repositorio.editarContacto(contacto)
@@ -35,11 +45,11 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
         }
     }
 
-    fun saveTelList(telefonos: Telefonos): MutableLiveData<Long> {
+    fun saveTelList(telefonos: Telefonos) {
         viewModelScope.launch {
-            telid.value = repoTel.guardartel(telefonos)
+            repoTel.guardartel(telefonos)
         }
-        return telid
+
     }
 
     fun editarTel(telefonos: Telefonos) {
@@ -63,7 +73,7 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
 
        //obtener contacto
 
-
+     fun searchDatabase(searchQuery:String):LiveData<List<Contacto>> = repositorio.searchDatabase(searchQuery)
     //listasrelacionales
 
     fun getContaCita(cid:Long):LiveData<List<ContactoAndCita>> = repositorio.getContCitas(cid)
@@ -71,5 +81,13 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
     fun getContTel(cid:Long):LiveData<List<ContactoAndTel>> = repositorio.getConTel(cid)
 
     fun getContacList():LiveData<List<Contacto>> = repositorio.readAllData()
+
+    fun getId() = repositorio.getId()
+
+
+
+
+
+
 
 }

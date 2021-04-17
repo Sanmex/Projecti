@@ -13,13 +13,18 @@
         <action
             android:id="@+id/action_contactoFragment_to_registroFragment"
             app:destination="@id/registroFragment" />
+        <action
+            android:id="@+id/action_contactoFragment_to_editarFragment"
+            app:destination="@id/editarFragment" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
         android:name="com.example.projecti.ui.RegistroFragment"
         android:label="Registro Contacto"
-        app:startDestination="@id/action_registroFragment_to_citasFragment"
         tools:layout="@layout/fragment_registro">
+        <action
+            android:id="@+id/action_registroFragment_to_contactoFragment"
+            app:destination="@id/contactoFragment" />
         <action
             android:id="@+id/action_registroFragment_to_citasFragment"
             app:destination="@id/citasFragment" />
@@ -28,5 +33,25 @@
         android:id="@+id/citasFragment"
         android:name="com.example.projecti.ui.CitasFragment"
         android:label="fragment_citas"
-        tools:layout="@layout/fragment_citas" />
+        tools:layout="@layout/fragment_citas" >
+        <action
+            android:id="@+id/action_citasFragment_to_contactoFragment"
+            app:destination="@id/contactoFragment" />
+
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/editarFragment"
+        android:name="com.example.projecti.ui.EditarFragment"
+        android:label="fragment_editar"
+        tools:layout="@layout/fragment_editar" >
+        <action
+            android:id="@+id/action_editarFragment_to_contactoFragment"
+            app:destination="@id/contactoFragment" />
+        <argument
+            android:name="currentContact"
+            app:argType="com.example.projecti.model.Contacto" />
+
+    </fragment>
 </navigation>

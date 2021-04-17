@@ -13,9 +13,9 @@ interface TelefonoDao {
     @Delete
     suspend fun borrarTelefonos(telefonos: Telefonos)
 
-    /*listado de telefonos esta no
+    @Transaction
     @Query("select * from tabla_telefonos")
-    fun listaTelefonos():List<Telefonos>*/
+    fun listaTelefonos():List<Telefonos>
     //empresa y telefonos ,por id
 
 }

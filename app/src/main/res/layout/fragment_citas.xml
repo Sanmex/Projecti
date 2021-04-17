@@ -5,10 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.CitasFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <Button
+        android:id="@+id/brnreloj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Relo'" />
+    <Button
+        android:id="@+id/btnhecho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="Ya"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_reloj"
+        tools:text="@tools:sample/date/ddmmyy"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="250dp"
+        android:layout_gravity="center_horizontal"
+        />
 </FrameLayout>

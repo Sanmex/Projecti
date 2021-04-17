@@ -15,6 +15,7 @@ interface OfertaDao {
     @Delete
     suspend fun deleteOfer(oferta: Oferta)
     //tiene que regresar la empresa con la oferta por nombre
+    //para pedir
 
 
 }

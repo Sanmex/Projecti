@@ -25,11 +25,11 @@ class CitaVM (application: Application):AndroidViewModel(application){
     private val citasId=MutableLiveData<Long>()
 
     //long guarda los id
-    fun saveCitaList(cita: Cita):MutableLiveData<Long>{
+    fun saveCitaList(cita: Cita) {
         viewModelScope.launch(Dispatchers.IO) {
-            citasId.value=repoCita.guardarCita(cita)
+            repoCita.guardarCita(cita)
         }
-        return citasId
+
     }
 
     fun editarCita(cita: Cita){
