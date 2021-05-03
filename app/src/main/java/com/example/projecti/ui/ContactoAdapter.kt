@@ -14,7 +14,7 @@ import com.example.projecti.model.Contacto
 class ContactoAdapter: RecyclerView.Adapter<ContactoAdapter.MyViewHolder>() {
 
     //varianble lista
-    private var contactoList= emptyList<Contacto>()
+    private var contactList= emptyList<Contacto>()
 
 
 
@@ -31,22 +31,29 @@ class ContactoAdapter: RecyclerView.Adapter<ContactoAdapter.MyViewHolder>() {
         )
     }
 
-    override fun getItemCount()=contactoList.size
+    override fun getItemCount()=contactList.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-          val currentItem=contactoList[position]
+          val currentItem=contactList[position]
+
           holder.binding.imageView
           holder.binding.testo1.text= currentItem.nombre
           holder.binding.testo2.text=currentItem.direccion
           holder.binding.testo3.text=currentItem.mail
+
           holder.binding.layito.setOnClickListener {
               val action=ContactoFragmentDirections.actionContactoFragmentToEditarFragment(currentItem)
               holder.binding.layito.findNavController().navigate(action)//posible error
+
           }
+          holder.binding.cita.setOnClickListener {
+           val actionr=ContactoFragmentDirections.actionContactoFragmentToCitasFragment(currentItem)
+           holder.binding.cita.findNavController().navigate(actionr)
+        }
     }
 
      fun setDate(contacto:List<Contacto>){
-         this.contactoList=contacto
+         this.contactList=contacto
          notifyDataSetChanged()
      }
 

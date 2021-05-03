@@ -18,8 +18,10 @@ interface CitaDao {
     suspend fun borrarCitas(cita: Cita)
 
     //listado de contactos
-    @Query("select * from tabla_citas")
+    @Query("select * from tabla_citas order by fecha")
     fun listaCitas():LiveData<List<Cita>>
     //empresa y citas ,por id
+
+
 
 }

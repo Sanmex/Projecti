@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/contactoFragment">
+    app:startDestination="@id/login2">
 
     <fragment
         android:id="@+id/contactoFragment"
@@ -16,6 +15,9 @@
         <action
             android:id="@+id/action_contactoFragment_to_editarFragment"
             app:destination="@id/editarFragment" />
+        <action
+            android:id="@+id/action_contactoFragment_to_citasFragment"
+            app:destination="@id/citasFragment" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
@@ -34,10 +36,12 @@
         android:name="com.example.projecti.ui.CitasFragment"
         android:label="fragment_citas"
         tools:layout="@layout/fragment_citas" >
+        <argument
+            android:name="actuslcont"
+            app:argType="com.example.projecti.model.Contacto" />
         <action
-            android:id="@+id/action_citasFragment_to_contactoFragment"
-            app:destination="@id/contactoFragment" />
-
+            android:id="@+id/action_citasFragment_to_citasList"
+            app:destination="@id/citasList" />
 
 
     </fragment>
@@ -53,5 +57,43 @@
             android:name="currentContact"
             app:argType="com.example.projecti.model.Contacto" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/citasList"
+        android:name="com.example.projecti.ui.CitasList"
+        android:label="fragment_citas_list"
+        tools:layout="@layout/fragment_citas_list" >
+        <action
+            android:id="@+id/action_citasList_to_citasFragment"
+            app:destination="@id/citasFragment" />
+        <action
+            android:id="@+id/action_citasList_to_mapFrag"
+            app:destination="@id/mapFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFrag"
+        android:name="com.example.projecti.ui.MapFrag"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/login2"
+        android:name="com.example.projecti.model.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login2_to_portada"
+            app:destination="@id/portada" />
+    </fragment>
+    <fragment
+        android:id="@+id/portada"
+        android:name="com.example.projecti.model.Portada"
+        android:label="fragment_portada"
+        tools:layout="@layout/fragment_portada" >
+        <action
+            android:id="@+id/action_portada_to_contactoFragment"
+            app:destination="@id/contactoFragment" />
+        <action
+            android:id="@+id/action_portada_to_citasList"
+            app:destination="@id/citasList" />
     </fragment>
 </navigation>

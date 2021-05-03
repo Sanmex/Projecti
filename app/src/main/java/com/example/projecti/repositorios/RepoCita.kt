@@ -13,6 +13,7 @@ interface RepoCita {
     suspend fun borrarCita(cita: Cita)
     fun listaCitas():LiveData<List<Cita>>
 
+
 }
 class RepoCitaImpl(application: Application):RepoCita{
 
@@ -27,5 +28,6 @@ class RepoCitaImpl(application: Application):RepoCita{
     override suspend fun borrarCita(cita: Cita) =citaDao.borrarCitas(cita)
 
     override fun listaCitas(): LiveData<List<Cita>> =citaDao.listaCitas()
+
 
 }

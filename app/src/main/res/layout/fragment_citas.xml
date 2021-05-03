@@ -20,6 +20,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="150dp"
         android:text="Ya"/>
+    <TextView
+        android:id="@+id/contacto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40dp"
+        android:hint="Contacto"
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,4 +39,6 @@
         android:layout_marginTop="250dp"
         android:layout_gravity="center_horizontal"
         />
+
+
 </FrameLayout>

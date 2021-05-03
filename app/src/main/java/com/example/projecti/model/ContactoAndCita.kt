@@ -9,7 +9,9 @@ data class ContactoAndCita(
         parentColumn="id",
         entityColumn="contactoId"
     )
-    val contactoYcitas:List<Cita>
+    val citas:List<Cita>
 )
+
+
 
 

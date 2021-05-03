@@ -1,28 +1,24 @@
 package com.example.projecti.ui
 
+
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.projecti.R
 import com.example.projecti.databinding.FragmentRegistroBinding
 import com.example.projecti.model.*
-import com.example.projecti.vm.CitaVM
 import com.example.projecti.vm.MainViewModel
-import kotlinx.android.synthetic.main.fragment_registro.*
 import kotlinx.coroutines.launch
-import java.util.*
 
 
-class RegistroFragment : Fragment() {
+
+class RegistroFragment : androidx.fragment.app.Fragment() {
 
     private var _binding:FragmentRegistroBinding?=null
     private val binding get() = _binding!!
@@ -44,11 +40,14 @@ class RegistroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnreg.setOnClickListener {
             insertDataTodb()
+
+
+
         }
 
 
     }
-     fun insertDataTodb(){
+     private fun insertDataTodb(){
         //get the text of the edit text
         val nombre=binding.nombreEt.text.toString()
         val direccion=binding.direccionEt.text.toString()
@@ -56,11 +55,14 @@ class RegistroFragment : Fragment() {
         if(inputCheck(nombre, direccion, email)){
             //si true se crea contacto
             val contacto= Contacto(0L,nombre,direccion,email)
-            savito(contacto)
-            savofer(contacto)
 
-            Toast.makeText(requireContext(),"Ya se guardo",Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_registroFragment_to_citasFragment)
+              savito(contacto)
+             Toast.makeText(context,"Id $id se ha insertado", Toast.LENGTH_SHORT).show()
+
+
+
+             Toast.makeText(requireContext(),"Ya se guardo",Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_registroFragment_to_contactoFragment)
         }else{
             Toast.makeText(requireContext(),"Llene todos los campos",Toast.LENGTH_SHORT).show()
         }
@@ -72,9 +74,10 @@ class RegistroFragment : Fragment() {
     }
     //por que solo fùnciono con lifecycle
 
-    fun savito(contacto: Contacto) = lifecycleScope.launch {
+     private fun savito(contacto: Contacto) = lifecycleScope.launch {
+
         val id = vm.saveContact(contacto)
-        Toast.makeText(context,"Id $id se ha insertado", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context,"Id $id se ha insertado", Toast.LENGTH_SHORT).show()
 
         val tel1=binding.tel1.text.toString()
         val tipo1=binding.tipo1.text.toString()
@@ -85,17 +88,15 @@ class RegistroFragment : Fragment() {
         vm.saveTelList(telefonos)
         vm.saveTelList(telefonos1)
 
-
-
-
-    }
-    fun savofer(contacto: Contacto)=lifecycleScope.launch {
-        val id=vm.saveContact(contacto)
         val puesto=binding.puesto.text.toString()
         val sueldo=binding.salario.text.toString()
         val horario="7am a 9am"
         val oferta= Oferta(0L,puesto,sueldo,horario,id)
         vm.saveOfer(oferta)
+
+
+
+
     }
 
 

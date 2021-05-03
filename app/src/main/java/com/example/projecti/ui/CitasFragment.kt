@@ -12,10 +12,11 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.projecti.R
 import com.example.projecti.databinding.FragmentCitasBinding
 import com.example.projecti.model.Cita
-import com.example.projecti.vm.CitaVM
+import com.example.projecti.vm.MainViewModel
 import java.util.*
 
 
@@ -24,9 +25,11 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
 
     private var _binding: FragmentCitasBinding?=null
     private val binding get() = _binding!!
-    private lateinit var vmc :CitaVM
+    private lateinit var vmc :MainViewModel
+    private val args by navArgs<CitasFragmentArgs>()
 
 
+//revisar loli
      val loli= arguments?.getLong("id")
 
              var day=0
@@ -54,7 +57,7 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
         _binding= FragmentCitasBinding.inflate(inflater,container,false)
 
         val view=binding.root
-        vmc= ViewModelProvider(this).get(CitaVM::class.java)
+        vmc= ViewModelProvider(this).get(MainViewModel::class.java)
         return view
         // Inflate the layout for this fragment
 
@@ -62,9 +65,11 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // binding.contacto.setText(args.actuslcont.nombre)
+           showCita()
            pickDate()
         binding.btnhecho.setOnClickListener {
-
+           val conid=args.actuslcont.id
             val a=saveYear
             val me=saveMonth
             val di=saveDay
@@ -72,13 +77,14 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
             val min=saveMinute
             val cal =Calendar.getInstance ()
             cal.set(a,me,di,ho,min)
-            val cita=Cita(0L,cal.time,"yaaa",0L)
+            val cita=Cita(0L,cal.time,"yaaa",conid)
+
 
             vmc.saveCitaList(cita)
 
             Toast.makeText(requireContext(),"ya me guarde",Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_citasFragment_to_contactoFragment)
+            findNavController().navigate(R.id.action_citasFragment_to_citasList)
 
 
         }
@@ -125,10 +131,20 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
 
 
         }
+       private fun showCita() {
+        //mejor no editar acua
+         vmc.getContactCita(args.actuslcont.id).observe(viewLifecycleOwner, androidx.lifecycle.Observer { citalists ->
+                         binding.contacto.setText(citalists.citas[0].fechahora.toString())
 
-
-
-
+                     })
+                 }
 
     }
+
+
+
+
+
+
+
 

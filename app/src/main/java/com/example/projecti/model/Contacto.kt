@@ -11,13 +11,13 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "tabla_contacto")
 data class Contacto(
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
+       // @ColumnInfo(name = "id")
         var id:Long=0L,
         @ColumnInfo(name = "nombre")
         var nombre:String,
-        @ColumnInfo(name = "direccion")
+        //@ColumnInfo(name = "direccion")
         var direccion:String,
-        @ColumnInfo(name = "mail")
+       // @ColumnInfo(name = "mail")
         var mail:String
 ):Parcelable
 

@@ -1,8 +1,12 @@
 package com.example.projecti.model
 
-data class Contactfull constructor(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Contactfull (
         val contacto: Contacto,
         val telefonos: Telefonos,
         val oferta: Oferta
 
-)
+):Parcelable

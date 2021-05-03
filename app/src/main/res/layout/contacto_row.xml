@@ -47,6 +47,19 @@
             android:layout_toRightOf="@+id/image_view"
             android:layout_below="@id/testo2"/>
 
+        <TextView
+            android:id="@+id/cita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/testo3"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="288dp"
+            android:layout_marginRight="288dp"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:text="Cita" />
+
 
 
 

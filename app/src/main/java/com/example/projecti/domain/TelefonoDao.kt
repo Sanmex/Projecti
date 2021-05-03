@@ -1,6 +1,11 @@
 package com.example.projecti.domain
 
+
+
+
 import androidx.room.*
+
+
 import com.example.projecti.model.Telefonos
 @Dao
 interface TelefonoDao {
@@ -13,9 +18,12 @@ interface TelefonoDao {
     @Delete
     suspend fun borrarTelefonos(telefonos: Telefonos)
 
-    @Transaction
-    @Query("select * from tabla_telefonos")
+
+   /* @Query("select * from tabla_telefonos")
     fun listaTelefonos():List<Telefonos>
-    //empresa y telefonos ,por id
+    //empresa y telefonos ,por id*/
+
+
+
 
 }

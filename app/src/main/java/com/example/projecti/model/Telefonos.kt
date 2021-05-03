@@ -1,21 +1,30 @@
 package com.example.projecti.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "tabla_telefonos")
+@Entity(tableName = "tabla_telefonos",
+   foreignKeys = [
+   ForeignKey(
+           entity = Contacto::class,
+           childColumns = ["contactoId"],
+           parentColumns = ["id"]
+   )]
+
+)
 @Parcelize
 data class Telefonos(
-    @ColumnInfo(name = "id")
+
     @PrimaryKey(autoGenerate = true)
     var id:Long,
-    @ColumnInfo(name = "numero")
+    @ColumnInfo(name = "numero",index = true)
     val numero:String,
+
     @ColumnInfo(name = "tipo")
     val tipo:String,
-    @ColumnInfo(name = "contactoId")
+
+    @ColumnInfo(name = "contactoId",index = true)
     var contactoId:Long
 ):Parcelable

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,8 +21,10 @@ class EditarFragment : Fragment() {
     private var _binding:FragmentEditarBinding?=null
     private val binding get() = _binding!!
     private lateinit var mainViewModel: MainViewModel
-
     private val args by navArgs<EditarFragmentArgs>()
+
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +34,17 @@ class EditarFragment : Fragment() {
         val view=binding.root
         //set text
         mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
+
         binding.editnom.setText(args.currentContact.nombre)
         binding.editDirec.setText(args.currentContact.direccion)
         binding.editMail.setText(args.currentContact.mail)
-        var ads=args.currentContact.id
-        //funcion que viene desde el vm donde se pregunte query por el objeto de clase relacionado con este id
-        binding
+         gettel()
+
+
+
+
+
+
 
 
         binding.btnedit.setOnClickListener {
@@ -48,11 +56,12 @@ class EditarFragment : Fragment() {
         return view
     }
 
+
     private fun updateItem(){
         val nombre=editnom.text.toString()
         val direccion=editDirec.text.toString()
         val email=editMail.text.toString()
-        val puesto=
+
        if(inputCheck(nombre ,direccion,email)){
            //primero se crea el objeto contacto
            val updateContact= Contacto(args.currentContact.id,nombre,direccion,email)
@@ -97,6 +106,32 @@ class EditarFragment : Fragment() {
             builder.create().show()
 
     }
+    /*private fun ofertin(puesto:String,salario:String,horario:String){
+        val conid=args.currentContact.id
+        val oferta=Oferta(0L,puesto,salario,horario,conid)
+        binding.puesto.setText(puesto)
+        binding.horario.setText(horario)
+        binding.sueldo.setText(salario)
+
+        SE TIENE QUE BUSCAR EL CONTACTO
+    }*/
+
+    private fun gettel() {
+        mainViewModel.getContTel(args.currentContact.id)
+                .observe(viewLifecycleOwner, Observer { telists ->
+                   // si son mas campos necesarios para la lista se podria hacer variable para el index
+                    binding.tel1.setText(telists.teles[0].numero)
+                    binding.tel2.setText(telists.teles[1].numero)
+                })
+    }
+
+
+
+
+
+
+
+
 
 
 

@@ -14,7 +14,7 @@ import com.example.projecti.model.*
 //underline conection of the data
 @Database(entities =[Contacto::class,
     Oferta::class, Cita::class, Telefonos::class],
-    version = 2,exportSchema = false)
+    version = 1,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun contactoDao(): ContactoDao

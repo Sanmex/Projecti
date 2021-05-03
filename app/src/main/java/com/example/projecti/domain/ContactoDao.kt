@@ -5,7 +5,7 @@ import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.example.projecti.model.Contacto
 import com.example.projecti.model.ContactoAndCita
-import com.example.projecti.model.ContactoAndTel
+import com.example.projecti.model.ContactowithTel
 
 
 @Dao
@@ -32,22 +32,27 @@ interface ContactoDao{
     //empresa y citas ,por id
     @Transaction
     @Query("Select * from tabla_contacto where id=:contactoId")
-    fun listaEmpresaCitas(contactoId:Long):LiveData<List<ContactoAndCita>>
+    fun listaEmpresaCitas(contactoId:Long):LiveData<ContactoAndCita>
     //empresa y telefonos
 
     @Transaction
-    @Query("Select * from tabla_contacto where id=:contactoId")
-    fun listaEmpresaTelefonos(contactoId:Long):LiveData<List<ContactoAndTel>>
+    @Query("select * from tabla_contacto  where id=:conid")
+    fun getTelecont(conid:Long):LiveData<ContactowithTel>
 
-      //busqueda
-    @Query("SELECT * FROM tabla_contacto WHERE nombre LIKE :searchQuery OR nombre LIKE :searchQuery")
+
+    //busqueda
+    @Query("SELECT * FROM tabla_contacto WHERE nombre LIKE :searchQuery")
     fun searchDatabase(searchQuery: String): LiveData<List<Contacto>>
 
-   //empresaoferta
-   /* @Transaction
-    @Query("select * from tabla_contacto")
-    fun  empresaOferta(oferta:)*/
 
+   /*  @Transaction
+    @Query("select tabla_telefonos.numero,tabla_telefonos.tipo from tabla_contacto inner join tabla_telefonos where tabla_telefonos.contactoId=tabla_contacto.id and tabla_contacto.id=:conid")
+    fun  ofertatelci(conid:Long):List<ContactowithTel>
+
+
+    @Transaction
+    @Query("select tabla_citas.fecha,tabla_citas.estrado from tabla_contacto inner join tabla_citas where tabla_citas.contactoId=tabla_contacto.id and tabla_contacto.id=:conid")
+    fun  citaConta(conid:Long):List<ContactoAndCita>*/
 
 
 
