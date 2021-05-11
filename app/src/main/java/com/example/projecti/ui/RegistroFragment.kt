@@ -27,7 +27,7 @@ class RegistroFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding= FragmentRegistroBinding.inflate(inflater,container,false)
 
         val view=binding.root

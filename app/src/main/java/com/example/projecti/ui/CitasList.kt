@@ -1,13 +1,13 @@
 package com.example.projecti.ui
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projecti.R
 import com.example.projecti.databinding.FragmentCitasListBinding
 import com.example.projecti.vm.MainViewModel
 
@@ -18,11 +18,11 @@ class CitasList : Fragment() {
     private val binding get() = _binding!!
     private lateinit var mainViewModel: MainViewModel
 
-
+    private lateinit var menuInflater: MenuInflater
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentCitasListBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -52,8 +52,6 @@ class CitasList : Fragment() {
 
 
     }
-
-
 
 }
 

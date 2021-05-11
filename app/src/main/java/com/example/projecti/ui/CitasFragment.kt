@@ -53,7 +53,7 @@ class CitasFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding= FragmentCitasBinding.inflate(inflater,container,false)
 
         val view=binding.root

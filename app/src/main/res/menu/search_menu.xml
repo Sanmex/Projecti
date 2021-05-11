@@ -2,12 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <item
-        android:id="@+id/coso"
-        android:title="search"
+    <item android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"
+        android:iconTint="@color/black"
+        app:showAsAction="collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        tools:targetApi="o"
-        />
+        android:title="BUSCAR" />
+
 </menu>

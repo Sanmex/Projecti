@@ -38,4 +38,7 @@ class BusqAdapter:RecyclerView.Adapter<BusqAdapter.Holderi>(){
         notifyDataSetChanged()
 
     }
-}
+
+
+    }
+

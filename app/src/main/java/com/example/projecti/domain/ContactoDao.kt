@@ -41,8 +41,8 @@ interface ContactoDao{
 
 
     //busqueda
-    @Query("SELECT * FROM tabla_contacto WHERE nombre LIKE :searchQuery")
-    fun searchDatabase(searchQuery: String): LiveData<List<Contacto>>
+    @Query("SELECT * FROM tabla_contacto WHERE nombre LIKE :nombre")
+    fun searchDatabase(nombre: String): LiveData<List<Contacto>>
 
 
    /*  @Transaction

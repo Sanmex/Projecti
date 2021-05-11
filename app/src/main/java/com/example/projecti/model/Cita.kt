@@ -11,8 +11,6 @@ data class Cita(
         @TypeConverters(Converters::class)
         @ColumnInfo(name = "fecha")
         var fechahora: Date,
-       /* @ColumnInfo(name = "hora")
-        val hora: Date,*/
         @ColumnInfo(name = "estrado")
         val estado:String,
         @ColumnInfo(name = "contactoId")

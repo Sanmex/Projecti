@@ -22,11 +22,13 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
     //contacto
     private val contactoRepo=RepositorioImp(application)//para iniciar lista
     //listacitas
-    val citalistas=repoCita.listaCitas()
+    //val citalistas=repoCita.listaCitas()
     //revisar si necesario iniciar aqui lista de contactos
     val contactos=contactoRepo.readAllData()
     //las listas con id
     private val citasId= MutableLiveData<Long>()
+    var parametroBusqueda=MutableLiveData<String>()
+    var contaList=MutableLiveData<List<Contacto>>()
 
 
 
@@ -122,9 +124,7 @@ class MainViewModel(application: Application) :AndroidViewModel(application){
     fun listacita():LiveData<List<Cita>> = repoCita.listaCitas()
 
 
-
-
-
+    fun buscar(query:String) :LiveData<List<Contacto>> = repositorio.searchDatabase(query)
 
 
 }
